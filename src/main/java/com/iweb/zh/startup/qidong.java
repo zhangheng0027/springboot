@@ -17,7 +17,7 @@ public class qidong implements ApplicationContextInitializer {
 		TimerUtils timer = TimerUtils.getTimer();
 		Thread thread = new Thread(timer);
 		thread.start();
-		
+		 
 		log.info(">>>>>>>>>>>>>>>> start TimerUtils class success <<<<<<<<<<<<<<<<");
 		
 	}

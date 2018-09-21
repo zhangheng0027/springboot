@@ -3,4 +3,13 @@
 
 <mapper namespace="com.iweb.zh.dao.UserDao">
 	
+	<select id="getPowerByUserName" parameterType="java.lang.String" resultType="Power">
+		SELECT DISTINCT p.* FROM `user` u
+		LEFT JOIN `user_role` uR ON u.`uId` = uR.`userId`
+		LEFT JOIN `role` r ON uR.`roleId` = r.`roleId`
+		LEFT JOIN `role_power` rP ON r.`roleId` = rP.`roleId`
+		LEFT JOIN `power` p ON p.`powerId` = rP.`powerId`
+		WHERE u.`userName` = #{userName} AND p.`url` IS NOT NULL
+	</select>
+	
 </mapper>

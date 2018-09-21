@@ -7,6 +7,11 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 import com.iweb.zh.utils.TimerUtils;
 
+/**
+ * 启动定时器
+ * @author ZhangHeng
+ *
+ */
 @SuppressWarnings("rawtypes")
 public class qidong implements ApplicationContextInitializer {
 	private final static Logger log = LoggerFactory.getLogger(qidong.class);

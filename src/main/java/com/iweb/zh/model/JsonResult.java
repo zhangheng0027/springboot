@@ -1,11 +1,18 @@
 package com.iweb.zh.model;
 
+import com.iweb.zh.enums.ResultEnums;
+
 public class  JsonResult<T> {
 	
 	private String code;
 	private String msg;
 	private T data;
 	
+	
+	public JsonResult(ResultEnums enums) {
+		this.code = enums.getCode();
+		this.msg = enums.getMsg();
+	}
 	public String getCode() {
 		return code;
 	}

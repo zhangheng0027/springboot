@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.iweb.zh.dao.UserDao;
 import com.iweb.zh.entity.Power;
 import com.iweb.zh.entity.User;
+import com.iweb.zh.enums.ResultEnums;
 import com.iweb.zh.model.JsonResult;
 import com.iweb.zh.service.UserService;
 import com.iweb.zh.utils.Md5Util;
@@ -37,12 +38,17 @@ public class UserServiceImpl implements UserService {
 		return userDao.getPowerByUserName(userName);
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public JsonResult signUp(User user) {
-		
-		
-		
-		return null;
+		JsonResult result = null;
+		if (userDao.hasUserName(user.getUserName()) > 0) {
+			result = new JsonResult(ResultEnums.USERNAME_OCCUPIED);
+		} else {
+			userDao.signUp(user);
+			result = new JsonResult(ResultEnums.USER_UNACTIVATION);
+		}
+		return result;
 	}
 	
 

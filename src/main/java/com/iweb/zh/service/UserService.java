@@ -28,5 +28,12 @@ public interface UserService {
 	 * @return
 	 */
 	public JsonResult signUp(User user);
+
+	/**
+	 * 激活用户
+	 * @param code
+	 * @return
+	 */
+	public JsonResult activation(String code);
 	
 }

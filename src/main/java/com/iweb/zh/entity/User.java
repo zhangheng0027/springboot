@@ -8,8 +8,14 @@ public class User {
 	private String userName;
 	private String passWord;
 	private String email;
+	private String actionCode;
 	
-	
+	public String getActionCode() {
+		return actionCode;
+	}
+	public void setActionCode(String actionCode) {
+		this.actionCode = actionCode;
+	}
 	public String getEmail() {
 		return email;
 	}

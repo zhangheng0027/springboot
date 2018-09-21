@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import com.iweb.zh.entity.Power;
@@ -36,10 +37,17 @@ public interface UserDao {
 	public int hasUserName(String userName);
 
 	/**
-	 * 用户注册 状态为  未激活
+	 * 用户注册 状态为  未激活v
 	 * @param user
 	 */
-	@Insert("insert int `user`(userName, passWord, start, email) values(#{userName}, #{passWord}, '1', #{email})")
+	@Insert("insert into `user`(userName, passWord, start, email, actionCode) values(#{userName}, #{passWord}, '1', #{email}, #{actionCode})")
 	public void signUp(User user);
+
+	/**
+	 * 用户激活
+	 * @param code
+	 */
+	@Update("update `user` set start = '0', actionTime = CURRENT_TIMESTAMP where start = '1' and actionCode = #{code}")
+	public void activation(String code);
 	
 }

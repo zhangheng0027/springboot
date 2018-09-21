@@ -11,6 +11,10 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,7 +27,7 @@ import com.iweb.zh.model.JsonResult;
 import com.iweb.zh.service.UserService;
 
 
-@RestController
+@Controller
 @RequestMapping("/user")
 public class UserController {
 	
@@ -36,9 +40,9 @@ public class UserController {
 	 * 用户密码进行md5 加密 32位大写
 	 * @return
 	 */
-	@RequestMapping("/login")
+	@PostMapping(value  = "/login")
 	@UnInterception
-	public String login(HttpServletRequest request, HttpServletResponse response, @RequestBody User user) {
+	public String login(HttpServletRequest request, HttpServletResponse response,User user) {
 		if (!userService.login(user)) {
 			return "login";
 		}
@@ -49,15 +53,16 @@ public class UserController {
 	}
 	
 	@SuppressWarnings("rawtypes")
-	@RequestMapping("/signUp")
+	@PostMapping(path = "/signUp")
 	@ResponseBody
 	@UnInterception
-	public JsonResult signUp(@RequestBody User user) {
-		
-		JsonResult f = userService.signUp(user);
-		
-		return null;
+	public JsonResult signUp(User user) { 
+		return userService.signUp(user);
 	}
 	
-	
+	@RequestMapping("/activation/{code}")
+	@SuppressWarnings("rawtypes")
+	public JsonResult activation(@PathVariable(value = "code") String code) {
+		return userService.activation(code);
+	}
 }

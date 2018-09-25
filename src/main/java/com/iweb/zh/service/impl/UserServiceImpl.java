@@ -72,9 +72,9 @@ public class UserServiceImpl implements UserService {
 			sb.append("/user/activation/").append(code);
 			javaMailModel.setReceiveAddress(user.getEmail());
 			javaMailModel.setReceiveName(user.getUserName());
-			javaMailModel.setContent("Activation");
-			javaMailModel.setSubject(sb.toString());
-			JavaMailEvent event = new JavaMailEvent(this, javaMailModel);
+			javaMailModel.setContent(sb.toString());
+			javaMailModel.setSubject("Activation");
+			JavaMailEvent event = new JavaMailEvent(applicationContext, javaMailModel);
 			applicationContext.publishEvent(event); // 触发监听
 			result = new JsonResult(ResultEnums.USER_UNACTIVATION);
 		}
@@ -87,10 +87,11 @@ public class UserServiceImpl implements UserService {
 		JsonResult result = null;
 		try {
 			userDao.activation(code);
+			result = new JsonResult(ResultEnums.USER_ACTIVATION);
 		} catch (Exception e) {
-			
+			result = new JsonResult(ResultEnums.UNERROR);
+			log.error(e.getMessage());
 		}
-		
 		return result;
 	}
 	

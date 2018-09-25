@@ -52,20 +52,22 @@ public class TestController {
 	}
 	
 	@RequestMapping("/mail")
+	@UnInterception
 	public void mail() throws UnsupportedEncodingException, MessagingException {
 		
 		
 		
 		javaMailModel.setReceiveAddress("1056948880@qq.com");
-		javaMailModel.setReceiveName("this is receiveName");
-		javaMailModel.setContent("this is content");
-		javaMailModel.setSubject("this is subJect");
-		JavaMailEvent event = new JavaMailEvent(this, javaMailModel);
+		javaMailModel.setReceiveName("a");
+		javaMailModel.setContent("b");
+		javaMailModel.setSubject("中文");
+		JavaMailEvent event = new JavaMailEvent(applicationContext, javaMailModel);
 		applicationContext.publishEvent(event); // 触发监听
 		
 	}
 	
 	@RequestMapping("/mail1")
+	@UnInterception
 	public void mail1() throws UnsupportedEncodingException, MessagingException {
 		
 //		javaMailModel.setReceiveAddress("1056948880@qq.com");

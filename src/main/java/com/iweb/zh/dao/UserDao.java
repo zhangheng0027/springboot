@@ -47,7 +47,18 @@ public interface UserDao {
 	 * 用户激活
 	 * @param code
 	 */
-	@Update("update `user` set start = '0', actionTime = CURRENT_TIMESTAMP where start = '1' and actionCode = #{code}")
+	@Update("update `user` set start = '0', actionTime = CURRENT_TIMESTAMP, actionCode = null where start = '1' and actionCode = #{code}")
 	public void activation(String code);
+
+	/**
+	 * 根据code 获取用户id
+	 * @param code
+	 * @return
+	 */
+	@Select("select uId from `user` where actionCode = #{code}")
+	public String getUserIdByCode(String code);
+	
+	@Insert("insert into `user_role`(userId, roleId) values(#{uId}, #{roleId})")
+	public void changeUserRole(String uId, String roleId);
 	
 }

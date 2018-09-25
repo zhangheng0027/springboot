@@ -26,6 +26,7 @@ import com.zaxxer.hikari.util.ClockSource.Factory;
 
 @Transactional
 @Service(value = "userService")
+@SuppressWarnings("rawtypes")
 public class UserServiceImpl implements UserService {
 
 	private final static Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
@@ -57,7 +58,6 @@ public class UserServiceImpl implements UserService {
 		return userDao.getPowerByUserName(userName);
 	}
 
-	@SuppressWarnings("rawtypes")
 	@Override
 	public JsonResult signUp(User user) {
 		JsonResult result = null;
@@ -81,17 +81,14 @@ public class UserServiceImpl implements UserService {
 		return result;
 	}
 
-	@SuppressWarnings("rawtypes")
+	
 	@Override
 	public JsonResult activation(String code) {
 		JsonResult result = null;
-		try {
-			userDao.activation(code);
-			result = new JsonResult(ResultEnums.USER_ACTIVATION);
-		} catch (Exception e) {
-			result = new JsonResult(ResultEnums.UNERROR);
-			log.error(e.getMessage());
-		}
+		String userId = userDao.getUserIdByCode(code);
+		userDao.activation(code);
+		userDao.changeUserRole(userId, "2"); // 将用户添加到普通用户
+		result = new JsonResult(ResultEnums.USER_ACTIVATION);
 		return result;
 	}
 	

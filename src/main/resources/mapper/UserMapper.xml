@@ -9,7 +9,7 @@
 		LEFT JOIN `role` r ON uR.`roleId` = r.`roleId`
 		LEFT JOIN `role_power` rP ON r.`roleId` = rP.`roleId`
 		LEFT JOIN `power` p ON p.`powerId` = rP.`powerId`
-		WHERE u.`userName` = #{userName} AND p.`url` IS NOT NULL
+		WHERE u.`userName` = #{userName} AND u.`start` = 0 AND p.`url` IS NOT NULL
 	</select>
 	
 </mapper>

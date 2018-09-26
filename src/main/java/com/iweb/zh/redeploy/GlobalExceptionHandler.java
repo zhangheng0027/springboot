@@ -32,7 +32,7 @@ public class GlobalExceptionHandler {
 	public JsonResult handleHttpMessageNotReadableException(
 	    MissingServletRequestParameterException ex) {
 	    logger.error("缺少请求参数，{}", ex.getMessage());
-	    return new JsonResult("400", "缺少必要的请求参数");
+	    return new JsonResult("501", "缺少必要的请求参数");
 	}
 	
 	
@@ -40,7 +40,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     public JsonResult handleTypeMismatchException(NullPointerException ex) {
         logger.error("空指针异常，{}", ex.getMessage());
-        return new JsonResult("500", "空指针异常了");
+        return new JsonResult("502", "空指针异常了");
     }
 	
 	

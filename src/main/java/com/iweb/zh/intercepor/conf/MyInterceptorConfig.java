@@ -11,7 +11,7 @@ public class MyInterceptorConfig implements WebMvcConfigurer {
 	
 	@Override
     public void addInterceptors(InterceptorRegistry registry) {
-        // 实现WebMvcConfigurer不会导致静态资源被拦截
+		
         registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**");
     }
 
